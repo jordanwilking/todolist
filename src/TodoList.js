@@ -7,12 +7,15 @@ import uuid from 'uuid'
 const ListContainer = styled.div`
   padding: 2rem;
   text-align: left;
+  outline-style: none;
+  z-index: -1;
 `
 
 const ListTitle = styled.h3``
 
 const ListBox = styled.div`
   display: block;
+  user-select: none;
 `
 
 class TodoList extends Component {
@@ -28,6 +31,7 @@ class TodoList extends Component {
     }
     this.addTodo = this.addTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
+    this.updateTodo = this.updateTodo.bind(this)
   }
 
   addTodo(todo) {
@@ -38,6 +42,18 @@ class TodoList extends Component {
     this.setState(state => ({
       todos: state.todos.filter(todo => todo.id !== id)
     }))
+  }
+
+  updateTodo(newTodo) {
+    const index = this.state.todos.map(todo => todo.id).indexOf(newTodo.id)
+
+    if (index >= 0) {
+      let updatedTodos = [...this.state.todos]
+      updatedTodos[index] = { ...newTodo }
+      this.setState({ todos: updatedTodos })
+    } else {
+      console.log('Could not update todo - not found in todo list')
+    }
   }
 
   render() {
@@ -53,6 +69,7 @@ class TodoList extends Component {
                 id={todo.id}
                 text={todo.text}
                 deleteTodo={this.removeTodo}
+                updateTodo={this.updateTodo}
               />
             )
           })}

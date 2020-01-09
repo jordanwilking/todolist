@@ -57,9 +57,7 @@ class TodoListForm extends Component {
           name='text'
           onChange={this.handleChange}
           placeholder='Create a todo'
-        >
-          {this.props.text}
-        </TodoText>
+        />
       </TodoItem>
     )
   }
