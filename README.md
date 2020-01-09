@@ -1,5 +1,24 @@
 # TodoList
 
+- Adding, deleting, editing of todo items
+- Uses localStorage for persistent storage
+- Single-click for "completed" state
+- Double-click to edit
+
+- Ideas for general improvement
+
+  - Overall styling
+  - Editable title
+  - Alternative to fadeout animation (can be a bit annoying)
+  - Better editing vs completed modes
+    - Fun for practice and nice to have fewer buttons, but maybe not the most intuitive
+
+- Ideas for final product
+  - Create multiple todo lists
+  - schedules, priorities
+  - move todos between lists
+  - drag and reorder
+
 ## Available Scripts
 
 In the project directory, you can run:
