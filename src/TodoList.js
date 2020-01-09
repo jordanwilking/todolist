@@ -22,12 +22,7 @@ class TodoList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      todos: [
-        { id: uuid(), text: 'workout' },
-        { id: uuid(), text: 'dishes' },
-        { id: uuid(), text: 'feed dog' },
-        { id: uuid(), text: 'practice programming' }
-      ]
+      todos: [...JSON.parse(localStorage.getItem('todos'))]
     }
     this.addTodo = this.addTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
@@ -35,13 +30,15 @@ class TodoList extends Component {
   }
 
   addTodo(todo) {
-    this.setState(state => ({ todos: [...state.todos, todo] }))
+    const newTodos = [...this.state.todos, todo]
+    localStorage.setItem('todos', JSON.stringify(newTodos))
+    this.setState({ todos: newTodos })
   }
 
   removeTodo(id) {
-    this.setState(state => ({
-      todos: state.todos.filter(todo => todo.id !== id)
-    }))
+    const newTodos = this.state.todos.filter(todo => todo.id !== id)
+    localStorage.setItem('todos', JSON.stringify(newTodos))
+    this.setState({ todos: newTodos })
   }
 
   updateTodo(newTodo) {
@@ -50,6 +47,7 @@ class TodoList extends Component {
     if (index >= 0) {
       let updatedTodos = [...this.state.todos]
       updatedTodos[index] = { ...newTodo }
+      localStorage.setItem('todos', JSON.stringify(updatedTodos))
       this.setState({ todos: updatedTodos })
     } else {
       console.log('Could not update todo - not found in todo list')
