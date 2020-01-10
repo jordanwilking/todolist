@@ -13,7 +13,7 @@
   - Better editing vs completed modes
     - Fun for practice and nice to have fewer buttons, but maybe not the most intuitive
   - Better function naming
-  - The tutorial put the 'completed' logic in TodoList. The parent needs to maintain the state when loading in the todos.
+  - Consider not using "handle" everywhere
 
 - Ideas for final product
 

@@ -43,7 +43,7 @@ class TodoListForm extends Component {
 
   addTodo(e) {
     e.preventDefault()
-    this.props.addTodo({ ...this.state, id: uuid() })
+    this.props.addTodo({ ...this.state, id: uuid(), completed: false })
     this.setState({ task: '' })
   }
 

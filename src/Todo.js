@@ -85,7 +85,7 @@ class Todo extends Component {
   }
 
   handleToggleCompleted() {
-    this.setState(state => ({ completed: !state.completed }))
+    this.props.toggleCompleted(this.props.id)
   }
 
   handleToggleEdit() {
@@ -126,7 +126,7 @@ class Todo extends Component {
   }
 
   getTodoTaskClasses() {
-    return this.state.completed && 'completed'
+    return this.props.completed && 'completed'
   }
 
   getTodoItemClass() {
