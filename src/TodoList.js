@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Todo from './Todo'
 import TodoListForm from './TodoListForm'
-import uuid from 'uuid'
 
 const ListContainer = styled.div`
-  padding: 2rem;
+  margin: 1rem auto;
+  padding: 1rem 1rem 1rem;
+  max-width: 500px;
   text-align: left;
   outline-style: none;
   z-index: -1;
@@ -42,16 +43,15 @@ class TodoList extends Component {
   }
 
   updateTodo(newTodo) {
-    const index = this.state.todos.map(todo => todo.id).indexOf(newTodo.id)
+    const updatedTodos = this.state.todos.map(todo => {
+      if (todo.id === newTodo.id) {
+        return { ...todo, task: newTodo.task }
+      }
+      return todo
+    })
 
-    if (index >= 0) {
-      let updatedTodos = [...this.state.todos]
-      updatedTodos[index] = { ...newTodo }
-      localStorage.setItem('todos', JSON.stringify(updatedTodos))
-      this.setState({ todos: updatedTodos })
-    } else {
-      console.log('Could not update todo - not found in todo list')
-    }
+    localStorage.setItem('todos', JSON.stringify(updatedTodos))
+    this.setState({ todos: updatedTodos })
   }
 
   render() {
@@ -65,7 +65,7 @@ class TodoList extends Component {
               <Todo
                 key={todo.id}
                 id={todo.id}
-                text={todo.text}
+                task={todo.task}
                 deleteTodo={this.removeTodo}
                 updateTodo={this.updateTodo}
               />

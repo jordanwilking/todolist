@@ -20,7 +20,7 @@ const Button = styled.button`
   color: green;
 `
 
-const TodoText = styled.input`
+const TodoTask = styled.input`
   display: inline-block;
   padding: 0.5rem;
   border: none;
@@ -33,7 +33,7 @@ const TodoText = styled.input`
 class TodoListForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { text: '' }
+    this.state = { task: '' }
     this.addTodo = this.addTodo.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -41,7 +41,7 @@ class TodoListForm extends Component {
   addTodo(e) {
     e.preventDefault()
     this.props.addTodo({ ...this.state, id: uuid() })
-    this.setState({ text: '' })
+    this.setState({ task: '' })
   }
 
   handleChange(e) {
@@ -52,9 +52,9 @@ class TodoListForm extends Component {
     return (
       <TodoItem>
         <Button onClick={this.addTodo}>+</Button>
-        <TodoText
-          value={this.state.text}
-          name='text'
+        <TodoTask
+          value={this.state.task}
+          name='task'
           onChange={this.handleChange}
           placeholder='Create a todo'
         />

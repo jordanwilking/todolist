@@ -12,7 +12,7 @@ const TodoItem = styled.div`
   }
 `
 
-const TodoText = styled.div`
+const TodoTask = styled.div`
   display: inline-block;
   padding: 0.5rem;
 
@@ -52,14 +52,14 @@ const Button = styled.button`
 class Todo extends Component {
   constructor(props) {
     super(props)
-    this.state = { inEditMode: false, text: '', completed: false }
+    this.state = { inEditMode: false, task: '', completed: false }
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this)
     this.handleToggleEdit = this.handleToggleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleOnBlur = this.handleOnBlur.bind(this)
     this.clearForm = this.clearForm.bind(this)
-    this.getTodoTextClasses = this.getTodoTextClasses.bind(this)
+    this.getTodoTaskClasses = this.getTodoTaskClasses.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleToggleCompleted = this.handleToggleCompleted.bind(this)
     this.getTodoItemClass = this.getTodoItemClass.bind(this)
@@ -89,12 +89,12 @@ class Todo extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.updateTodo({ id: this.props.id, text: this.state.text })
+    this.props.updateTodo({ id: this.props.id, task: this.state.task })
     this.handleToggleEdit()
   }
 
   handleOnBlur(e) {
-    if (this.state.text) {
+    if (this.state.task) {
       this.handleSubmit(e)
     } else {
       this.handleToggleEdit()
@@ -102,17 +102,16 @@ class Todo extends Component {
   }
 
   handleKeyDown(e) {
-    console.log(e.key)
     if (e.key === 'Escape') {
       this.handleToggleEdit()
     }
   }
 
   clearForm() {
-    this.setState({ text: '' })
+    this.setState({ task: '' })
   }
 
-  getTodoTextClasses() {
+  getTodoTaskClasses() {
     return this.state.completed && 'completed'
   }
 
@@ -124,16 +123,7 @@ class Todo extends Component {
     return (
       <TodoItem className={this.getTodoItemClass()}>
         <Button onClick={this.handleDeleteTodo}>x</Button>
-        {!this.state.inEditMode && (
-          <TodoText
-            className={this.getTodoTextClasses()}
-            onClick={this.handleToggleCompleted}
-            onDoubleClick={this.handleToggleEdit}
-          >
-            {this.props.text}
-          </TodoText>
-        )}
-        {this.state.inEditMode && (
+        {this.state.inEditMode ? (
           <TodoEditForm
             onSubmit={this.handleSubmit}
             onBlur={this.handleOnBlur}
@@ -141,12 +131,20 @@ class Todo extends Component {
           >
             <TodoEditInput
               autoFocus
-              value={this.state.text}
-              name='text'
+              value={this.state.task}
+              name='task'
               onChange={this.handleChange}
-              placeholder={this.props.text}
+              placeholder={this.props.task}
             />
           </TodoEditForm>
+        ) : (
+          <TodoTask
+            className={this.getTodoTaskClasses()}
+            onClick={this.handleToggleCompleted}
+            onDoubleClick={this.handleToggleEdit}
+          >
+            {this.props.task}
+          </TodoTask>
         )}
       </TodoItem>
     )

@@ -12,8 +12,11 @@
   - Alternative to fadeout animation (can be a bit annoying)
   - Better editing vs completed modes
     - Fun for practice and nice to have fewer buttons, but maybe not the most intuitive
+  - Better function naming
+  - The tutorial put the 'completed' logic in TodoList. Since the parent doesn't care about that, it's probably just preference. However, being able to control that state from the parent could be valuable.
 
 - Ideas for final product
+
   - Create multiple todo lists
   - schedules, priorities
   - move todos between lists
