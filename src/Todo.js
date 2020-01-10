@@ -8,22 +8,37 @@ const TodoItem = styled.div`
   &.deleted {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 1s, opacity 1s linear;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
   }
 `
 
 const TodoTask = styled.div`
   display: inline-block;
+  position: relative;
   padding: 0.5rem;
+  transition: opacity 0.4s linear;
+  cursor: pointer;
 
-  &.completed {
-    text-decoration: line-through;
-    font-style: italic;
-    opacity: 60%;
+  &.completed::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: black;
+    animation: strikeitem 0.5s ease-out 0s forwards;
+
+    @keyframes strikeitem {
+      to {
+        width: calc(100% - 1rem);
+      }
+    }
   }
 
-  &:hover {
-    cursor: pointer;
+  &.completed {
+    opacity: 0.6;
   }
 `
 
@@ -42,11 +57,10 @@ const TodoEditInput = styled.input`
 `
 
 const Button = styled.button`
-  color: red;
-
-  &:hover {
-    cursor: pointer;
-  }
+  border: none;
+  color: #c24242;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 class Todo extends Component {
@@ -67,7 +81,7 @@ class Todo extends Component {
 
   handleDeleteTodo() {
     this.handleToggleDeleted()
-    setTimeout(() => this.props.deleteTodo(this.props.id), 2000)
+    setTimeout(() => this.props.deleteTodo(this.props.id), 500)
   }
 
   handleToggleCompleted() {
@@ -122,7 +136,9 @@ class Todo extends Component {
   render() {
     return (
       <TodoItem className={this.getTodoItemClass()}>
-        <Button onClick={this.handleDeleteTodo}>x</Button>
+        <Button onClick={this.handleDeleteTodo}>
+          <i className='fas fa-trash' />
+        </Button>
         {this.state.inEditMode ? (
           <TodoEditForm
             onSubmit={this.handleSubmit}

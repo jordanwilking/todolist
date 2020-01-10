@@ -17,7 +17,10 @@ const TodoItem = styled.form`
 `
 
 const Button = styled.button`
+  border: none;
   color: green;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 const TodoTask = styled.input`
@@ -51,7 +54,9 @@ class TodoListForm extends Component {
   render() {
     return (
       <TodoItem>
-        <Button onClick={this.addTodo}>+</Button>
+        <Button onClick={this.addTodo}>
+          <i className='fas fa-plus' />
+        </Button>
         <TodoTask
           value={this.state.task}
           name='task'
